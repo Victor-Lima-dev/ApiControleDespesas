@@ -10,9 +10,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//conexao de dados
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DespesasContext")));
+//variavel com a string de conexao usando o builder
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//adicionando o contexto do banco de dados
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 
 var app = builder.Build();
