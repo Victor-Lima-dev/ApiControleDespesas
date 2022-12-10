@@ -20,7 +20,7 @@ namespace ApiControleDespesas.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Receita>>> GetReceitas()
         {
-             var lista = await _context.Receitas.ToListAsync();
+            var lista = await _context.Receitas.ToListAsync();
             return Ok(lista);
         }
 
@@ -30,21 +30,63 @@ namespace ApiControleDespesas.Controllers
         {
             var verificacaoDescricao = _context.Receitas.Any(x => x.Descricao == receita.Descricao);
             var verificacaoData = _context.Receitas.Any(c => c.Data.Month == receita.Data.Month);
-          
-         if (verificacaoData && verificacaoDescricao)
-           {
+
+            if (verificacaoData && verificacaoDescricao)
+            {
                 return BadRequest();
             }
 
-          else
-           {
+            else
+            {
                 _context.Receitas.Add(receita);
                 await _context.SaveChangesAsync();
                 return Ok();
-            }            
+            }
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Receita>> EditReceita(int id, Receita receita)
+        {
+            if (id != receita.ReceitaId)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.Entry(receita).State = EntityState.Modified;
+                return Ok(receita);
+            }    
+    
+        }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Receita>> Get(int id)
+        {
+            var receita = _context.Receitas.FirstOrDefault(x => x.ReceitaId == id);
 
+            
+            if (receita == null)
+            {
+                return NotFound("Receita nao encontrada");
+            }
+            
+            return receita;
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<Receita>> Delete(int id)
+        {
+            var receita = _context.Receitas.FirstOrDefault(x => x.ReceitaId == id);
+
+            if (receita == null)
+            {
+                return NotFound();
+            }
+
+            _context.Receitas.Remove(receita);
+            await _context.SaveChangesAsync(); 
+
+            return Ok(receita);
+        }
     }
 }
