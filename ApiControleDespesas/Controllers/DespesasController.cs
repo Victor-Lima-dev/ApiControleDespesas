@@ -32,7 +32,16 @@ namespace ApiControleDespesas.Controllers
 
 
         {
-            var verificacaoDescricao = _context.Despesas.Any(x => x.Descricao == despesa.Descricao);
+            var verificaCategoria = despesa.Categoria;
+
+            if (verificaCategoria == null)
+            {
+                despesa.Categoria = "Outros";
+            }
+         
+
+            
+            var verificacaoDescricao =  _context.Despesas.Any(x => x.Descricao == despesa.Descricao);
             var verificacaoData = _context.Despesas.Any(c => c.Data.Month == despesa.Data.Month);
 
             if (verificacaoData && verificacaoDescricao)

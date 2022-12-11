@@ -15,6 +15,6 @@ namespace ApiControleDespesas.Models
         public decimal Valor { get; set; }
         [Required]
         public DateTime Data { get; set; }
-    
+
     }
 }
