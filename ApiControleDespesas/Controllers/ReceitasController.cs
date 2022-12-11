@@ -25,6 +25,23 @@ namespace ApiControleDespesas.Controllers
             return Ok(lista);
         }
 
+        //metodo para categorizar por descricao
+        //Para lembrar do código, para fazer uma pesquisa nós fazemos um metodo que irá receber uma string
+        //ai usamos o Where para fazer a pesquisa utilizando o Contains para ver se aquela string bate em alguma coisa
+        //dentro do banco de dados e retornar a lista de acordo com a pesquisa feita pelo usuário.
+
+        //no Http o descricao é o nome que vai aparecer na url ele é constante e o {descricao} é qual descricao a gente vai
+        //procurar, portanto ela é de acordo com a variavel que entra no metodo.
+
+        [HttpGet("descricao/{descricao}")]
+        public async Task<ActionResult<IEnumerable<Receita>>> GetReceitasPorDescricao(string descricao)
+        {
+            var lista = await _context.Receitas.Where(x => x.Descricao.Contains(descricao)).ToListAsync();
+            return Ok(lista);
+        }
+
+
+
         //metodo para adicionar receita
         [HttpPost]
 

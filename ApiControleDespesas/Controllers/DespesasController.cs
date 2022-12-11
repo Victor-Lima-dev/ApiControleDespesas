@@ -32,15 +32,23 @@ namespace ApiControleDespesas.Controllers
 
 
         {
-            var verificaCategoria = despesa.Categoria;
-
-            if (verificaCategoria == null)
+            //verifica se a categoria da despesa ta preenchida
+            var verificaCategoria = despesa.Categoria.ToLower();
+            if (verificaCategoria ==  "")
             {
-                despesa.Categoria = "Outros";
+                despesa.Categoria = "outros";
             }
-         
-
             
+            //verifica se a categoria da despesa é válida
+            string[] categoriasAceitas = { "alimentacao", "transporte", "moradia", "educacao", "saude", "lazer", "outros" };
+
+            var verificaResposta = categoriasAceitas.Any(x => x == despesa.Categoria);
+
+            if(verificaResposta == false)
+            {
+                return BadRequest();
+            }
+                    
             var verificacaoDescricao =  _context.Despesas.Any(x => x.Descricao == despesa.Descricao);
             var verificacaoData = _context.Despesas.Any(c => c.Data.Month == despesa.Data.Month);
 
@@ -48,15 +56,12 @@ namespace ApiControleDespesas.Controllers
             {
                 return BadRequest();
             }
-
             else
             {
                 _context.Despesas.Add(despesa);
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok(despesa);
             }
-
-
     }
 
         //metodo para buscar despesa por id
