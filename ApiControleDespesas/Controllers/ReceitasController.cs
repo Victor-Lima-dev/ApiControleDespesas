@@ -40,6 +40,14 @@ namespace ApiControleDespesas.Controllers
             return Ok(lista);
         }
 
+        //metodo para categorizar por data
+        [HttpGet("{ano}/{mes}")]
+        public async Task<ActionResult<IEnumerable<Receita>>> GetReceitasPorData(int ano, int mes)
+        {
+            var lista = await _context.Receitas.Where(x => x.Data.Month == mes && x.Data.Year == ano).ToListAsync();
+            return Ok(lista);
+        }
+
 
 
         //metodo para adicionar receita

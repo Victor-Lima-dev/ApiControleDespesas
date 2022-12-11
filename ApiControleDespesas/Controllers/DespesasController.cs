@@ -34,6 +34,19 @@ namespace ApiControleDespesas.Controllers
             return Ok(lista);
         }
 
+        //metodo para categorizar por data
+        [HttpGet("{ano}/{mes}")]
+        public async Task<ActionResult<IEnumerable<Despesa>>> GetDespesasPorData(int ano, int mes)
+        {
+            var lista = await _context.Despesas.Where(x => x.Data.Month == mes && x.Data.Year == ano).ToListAsync();
+            return Ok(lista);
+        }
+
+
+
+
+
+
         //metodo para criar despesa
         [HttpPost]
         public async Task<ActionResult<Despesa>> PostDespesa(Despesa despesa)
