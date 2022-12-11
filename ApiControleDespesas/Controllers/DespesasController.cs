@@ -26,6 +26,14 @@ namespace ApiControleDespesas.Controllers
             return Ok(lista);
         }
 
+        //metodo para categorizar por categorias
+        [HttpGet("categoria/{categoria}")]
+        public async Task<ActionResult<IEnumerable<Despesa>>> GetDespesasPorCategoria(string categoria)
+        {
+            var lista = await _context.Despesas.Where(x => x.Categoria == categoria).ToListAsync();
+            return Ok(lista);
+        }
+
         //metodo para criar despesa
         [HttpPost]
         public async Task<ActionResult<Despesa>> PostDespesa(Despesa despesa)
