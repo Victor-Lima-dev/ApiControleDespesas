@@ -17,6 +17,7 @@ namespace ApiControleDespesas.Controllers
             _context = context;
         }
 
+        //metodo para listar receita
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Receita>>> GetReceitas()
         {
@@ -24,6 +25,7 @@ namespace ApiControleDespesas.Controllers
             return Ok(lista);
         }
 
+        //metodo para adicionar receita
         [HttpPost]
 
         public async Task<ActionResult<Receita>> PostReceita(Receita receita)
@@ -44,6 +46,7 @@ namespace ApiControleDespesas.Controllers
             }
         }
 
+        //metodo para editar receita
         [HttpPut("{id}")]
         public async Task<ActionResult<Receita>> EditReceita(int id, Receita receita)
         {
@@ -59,6 +62,7 @@ namespace ApiControleDespesas.Controllers
     
         }
 
+        //metodo para detalhar receita
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Receita>> Get(int id)
         {
@@ -73,6 +77,7 @@ namespace ApiControleDespesas.Controllers
             return receita;
         }
 
+        //metodo para deletar receita
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Receita>> Delete(int id)
         {
