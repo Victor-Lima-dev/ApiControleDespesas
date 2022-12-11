@@ -48,8 +48,6 @@ namespace ApiControleDespesas.Controllers
             return Ok(lista);
         }
 
-
-
         //metodo para adicionar receita
         [HttpPost]
 
@@ -118,5 +116,8 @@ namespace ApiControleDespesas.Controllers
 
             return Ok(receita);
         }
+
+
+        
     }
 }
