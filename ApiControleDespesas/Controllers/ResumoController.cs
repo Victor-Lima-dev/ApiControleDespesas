@@ -1,5 +1,7 @@
 ﻿using ApiControleDespesas.Context;
 using ApiControleDespesas.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +11,14 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
+
 namespace ApiControleDespesas.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+//proteçao JWT
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
 public class ResumoController : ControllerBase
 {
     private readonly AppDbContext _context;

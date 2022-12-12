@@ -51,7 +51,7 @@ namespace ApiControleDespesas.Controllers
             var lista = _userManager.Users.ToList();
             return Ok(lista);
         }
-
+        
 
 
         //metodo para registrar usuario
@@ -75,7 +75,7 @@ namespace ApiControleDespesas.Controllers
             var result = await _userManager.CreateAsync(user, usuario.Senha);
             if (result.Succeeded)
             {
-                return Ok("Usuario criado com sucesso");
+                return Ok(GeraToken(usuario));
             }
             else
             {
@@ -98,7 +98,7 @@ namespace ApiControleDespesas.Controllers
             var result = await _signInManager.PasswordSignInAsync(user, usuario.Senha, false, true);
             if (result.Succeeded)
             {
-                return Ok("Usuario logado com sucesso");
+                return Ok(GeraToken(usuario));
             }
             else
             {
